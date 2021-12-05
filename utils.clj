@@ -7,15 +7,21 @@
             [clojure.walk :as walk]))
 
 (defonce get-input
-  (memoize (fn [day]
-             (:body (hato/get (format "https://adventofcode.com/2019/day/%s/input" day)
+  (memoize (fn [year day]
+             (:body (hato/get (format "https://adventofcode.com/%s/day/%s/input"
+                                      year day)
                               {:headers {"cookie" (str/trim (slurp ".session"))}})))))
+
+
 
 (defn parse-newline-separated-list [input]
   (str/split-lines input))
 
 (defn parse-comma-separated-list [input]
   (str/split (str/trim input) #","))
+
+(defn parse-space-separated-list [input]
+  (str/split (str/trim input) #"\s+"))
 
 (defn parse-integer [s]
   (Integer/parseInt s))
